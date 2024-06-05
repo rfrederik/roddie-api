@@ -1,7 +1,29 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node:22
+    container_name: roddie-api
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - .env
+
   postgres:
     image: postgres
-    env_file:
+    container_name: postgres-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
       - .env
     ports:
-      - '5432:5432'
+      - "5432:5432"
+
+volumes:
+  pgdata:
