@@ -39,7 +39,7 @@ constructor(
   }
 
   async getHighScore(): Promise<Score> {
-    const asdf = await this.scoresRepository.findOne({
+    return await this.scoresRepository.findOne({
       where: {
         score: MoreThan(0)
       },
@@ -47,7 +47,5 @@ constructor(
         score: 'DESC'
       }
     });
-
-    return asdf
   }
 }
